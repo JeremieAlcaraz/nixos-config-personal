@@ -74,8 +74,9 @@
   };
 
 ## Alacritty (terminal Wayland)
+## Alacritty (terminal Wayland)
 programs.alacritty = {
-  enable = true;
+  enable   = true;
   settings = {
     window.padding = { x = 6; y = 6; };
     window.decorations = "none";
