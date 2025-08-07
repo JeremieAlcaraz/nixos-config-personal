@@ -51,6 +51,8 @@
       ll = "ls -l";
       la = "ls -la";
       rebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+      rebuild-test = "sudo nixos-rebuild test --flake ~/nixos-config#nixos";
+      rebuild-boot = "sudo nixos-rebuild boot --flake ~/nixos-config#nixos";
     };
   };
 
