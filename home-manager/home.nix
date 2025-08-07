@@ -73,6 +73,17 @@
     '';
   };
 
+## Alacritty (terminal Wayland)
+programs.alacritty = {
+  enable = true;
+  settings = {
+    window.padding = { x = 6; y = 6; };
+    window.decorations = "none";
+    font.size = 11;
+    colors.primary.background = "#1e1e2e";
+    colors.primary.foreground = "#cdd6f4";
+  };
+};
   # ╭──────────────────────────────────────────────────────────────╮
   # │                  CONFIGURATION DU SHELL ZSH                  │
   # ╰──────────────────────────────────────────────────────────────╯
@@ -107,7 +118,6 @@
       # config niri
     "${config.xdg.configHome}/niri/config.kdl".source =
        inputs.self + "/modules/niri/config.kdl";
-
 
     # Exemple de dotfile (commenté)
     # ".config/example/config.yml".text = ''
