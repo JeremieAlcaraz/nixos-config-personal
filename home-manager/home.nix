@@ -12,6 +12,7 @@
     tailscale
     openssh
     gh
+    cowsay
     
     # Ajoutez d'autres packages utilisateur ici
     # firefox

@@ -43,7 +43,12 @@
     isNormalUser = true;
     description = "jeremie";
     extraGroups = [ "networkmanager" "wheel" ];
+        # --- ICI : choix du shell par défaut ---
+    shell = pkgs.zsh;        # ← ligne à ajouter
   };
+
+  # juste après la section packages ou où tu veux, au niveau racine
+  programs.zsh.enable = true;
 
   users.groups.jeremie = {
     name = "jeremie";
