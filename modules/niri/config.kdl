@@ -14,7 +14,3 @@ output "*" {
 spawn-at-startup "waybar"
 spawn-at-startup "alacritty"
 
-binds {
-  Mod+Return { spawn "alacritty" }
-  Mod+Q      { quit }
-}
