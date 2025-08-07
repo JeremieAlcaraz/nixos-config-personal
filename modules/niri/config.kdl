@@ -1,16 +1,20 @@
-// ~/.config/niri/config.kdl — minimal
+// ~/.config/niri/config.kdl  –  version « hello world »
 
 input {
-  keyboard.xkb.layout "fr"
+  keyboard {
+    xkb { layout "fr" }         // AZERTY ; remplace par "us" si besoin
+  }
 }
 
-output "*" {
-  mode "preferred"
-  scale 1
-  transform "normal"
+output "*" {                    // active tout écran détecté
+  mode preferred
   focus-at-startup
 }
 
 spawn-at-startup "waybar"
 spawn-at-startup "alacritty"
 
+binds {
+  Mod+Return { spawn "alacritty" }
+  Mod+Q      { quit }
+}
