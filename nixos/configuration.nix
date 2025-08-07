@@ -1,35 +1,24 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
+# Configuration système NixOS
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  # Réseau
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
-  # Set your time zone.
+  # Localisation
   time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "fr_FR.UTF-8";
     LC_IDENTIFICATION = "fr_FR.UTF-8";
@@ -42,101 +31,60 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
-  # Configure keymap in X11
+  # Clavier
   services.xserver.xkb = {
     layout = "fr";
     variant = "azerty";
   };
-
-  # Configure console keymap
   console.keyMap = "fr";
-   
 
-  # Configure Tailscale
-  services.tailscale = {
-   enable = true;
-   openFirewall  = true; 
-  
-  };
-
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Utilisateurs
   users.users.jeremie = {
     isNormalUser = true;
     description = "jeremie";
     extraGroups = [ "networkmanager" "wheel" ];
-    group = "jeremie";
-    packages = with pkgs; [];
   };
 
-  # Add group for git right
   users.groups.jeremie = {
-  name = "jeremie";
-  members = ["jeremie"];
-};
-  # Enable automatic login for the user.
+    name = "jeremie";
+    members = ["jeremie"];
+  };
+
+  # Auto-login (optionnel)
   services.getty.autologinUser = "jeremie";
 
-# Desactivate password for wheel group
- security.sudo = {
+  # Sudo sans mot de passe pour wheel
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = false;
+  };
 
-  enable = true;
-  wheelNeedsPassword = false;
-
- };
-
-
-  # Allow unfree packages
+  # Packages système essentiels seulement
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-     git
-     neovim
-     tailscale
-     openssh
-     gh
+    git
+    neovim
   ];
 
-  networking.firewall.enable = true;
+  # Services système
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
 
-
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-  
-  programs.git = {
-   enable = true;
-   config = {
-   user.name = "JeremieAlcaraz";
-   user.email = "hello@jeremiealcaraz.com";
-   };
- };
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # Configuration git système (peut être déplacée dans home-manager)
+  programs.git = {
+    enable = true;
+    config = {
+      user.name = "JeremieAlcaraz";
+      user.email = "hello@jeremiealcaraz.com";
+    };
+  };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  # Enable flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  system.stateVersion = "25.05";
 }
