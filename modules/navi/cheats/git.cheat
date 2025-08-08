@@ -23,6 +23,5 @@ gh-dl
 # Récupérer une pull request spécifique depuis GitHub
 git fetch origin pull/<number>/head:test-pr-<number> && git checkout test-pr-<number>
 
-
-# Repasser sur la dev et supprimer la branche de la PR
-git checkout dev && git branch -D test-pr-<number>
+# Repasser sur la main et supprimer la branche de la PR
+git checkout main && git branch -D test-pr-<number>
