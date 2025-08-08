@@ -34,7 +34,7 @@ layout {
     focus-ring {
         width 4
         active-color "#d1779a"
-        inactive-color "#505050"
+        inactive-color "#73bbd3"
     }
     border {
         off
@@ -80,7 +80,7 @@ window-rule {
     block-out-from "screen-capture"
 }
 
-/-window-rule {
+window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
