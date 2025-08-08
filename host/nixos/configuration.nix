@@ -5,14 +5,14 @@
   imports = [
     ./hardware-configuration.nix
   ];
-
-  # ╭──────────────────────── BOOT ─────────────────────────╮
-  boot.loader.systemd-boot.enable     = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-
+  
     # ╭────────────────────── LOGS & KERNEL ──────────────────╮
   boot = {
+    # Configuration du bootloader
+    loader.systemd-boot.enable     = true;
+    loader.efi.canTouchEfiVariables = true;
+
+    # Configuration des logs et kernel
     kernelParams = [ "loglevel=4" "quiet" ];
     consoleLogLevel = 4;
     kernel.sysctl = {
@@ -74,6 +74,12 @@
 
   # Auto-login (optionnel)
   services.getty.autologinUser = "jeremie";
+
+  environment.loginShellInit = ''
+    if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+      exec niri --session
+    fi
+  '';
 
   # ╭────────────────────── SUDO ───────────────────────────╮
   security.sudo = {
