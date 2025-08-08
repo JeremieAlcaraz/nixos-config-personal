@@ -19,7 +19,7 @@
     (inputs.self + "/modules/aliases")
     (inputs.self + "/modules/lazygit")
     (inputs.self + "/modules/navi")
-    # (on ajoutera /modules/niri quand on fera le module dédié)
+    (inputs.self + "/modules/niri")  
   ];
 
   # ╭──────────────────────────────────────────────────────────────╮
@@ -111,10 +111,6 @@
     # Cheatsheets Navi personnelles (on déplacera dans le module navi à l'étape 3)
     "${config.xdg.dataHome}/navi/cheats".source =
       inputs.self + "/modules/navi/cheats";
-
-    # config niri (on fera un module dédié à l'étape 2)
-    "${config.xdg.configHome}/niri/config.kdl".source =
-      inputs.self + "/modules/niri/config.kdl";
   };
 
   # ╭──────────────────────────────────────────────────────────────╮
