@@ -7,7 +7,10 @@ input {
         }
         numlock
     }
-    touchpad { tap natural-scroll }
+    touchpad {
+        tap
+        natural-scroll
+    }
     mouse { }
     trackpoint { }
 }
@@ -32,14 +35,14 @@ layout {
 
     focus-ring {
         width 3
-        active-gradient from="#d1779a" to="#e6a6bd" angle=90 in="oklch longer hue"
-        inactive-gradient from="#73bbd3" to="#a6d9e6" angle=90 in="oklch longer hue"
+        active-gradient from="#d1779a" to="#e6a6bd" angle=90
+        inactive-gradient from="#73bbd3" to="#a6d9e6" angle=90
     }
 
     border {
         width 2
-        active-gradient from="#d1779aCC" to="#e6a6bdCC" angle=90 in="oklch longer hue"
-        inactive-gradient from="#73bbd3" to="#a6d9e6" angle=90 in="oklch longer hue"
+        active-gradient from="#d1779aCC" to="#e6a6bdCC" angle=90
+        inactive-gradient from="#73bbd3" to="#a6d9e6" angle=90
         urgent-color "#9b0000"
     }
 
