@@ -21,6 +21,7 @@
     (inputs.self + "/modules/navi")
     (inputs.self + "/modules/niri")
     (inputs.self + "/modules/waybar")
+    (inputs.self + "/modules/alacritty")
   ];
 
   # ╭──────────────────────────────────────────────────────────────╮
@@ -66,18 +67,6 @@
     enableZshIntegration = true; # l’injecte dans ton zsh
     # enableBashIntegration = true;
     # enableFishIntegration = true;
-  };
-
-  ## Alacritty (terminal Wayland)
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      window.padding = { x = 6; y = 6; };
-      window.decorations = "none";
-      font.size = 11;
-      colors.primary.background = "#1e1e2e";
-      colors.primary.foreground = "#cdd6f4";
-    };
   };
 
   # ╭──────────────────────────────────────────────────────────────╮
