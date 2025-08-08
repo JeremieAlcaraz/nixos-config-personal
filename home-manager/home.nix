@@ -15,16 +15,17 @@
   # ╭──────────────────────────────────────────────────────────────╮
   # │                          IMPORTS MODULES                     │
   # ╰──────────────────────────────────────────────────────────────╯
-  imports = [
-    (inputs.self + "/modules/aliases")
-    (inputs.self + "/modules/lazygit")
-    (inputs.self + "/modules/navi")
-    (inputs.self + "/modules/niri")
-    (inputs.self + "/modules/waybar")
-    (inputs.self + "/modules/alacritty")
-    (inputs.self + "/modules/misc")
-    (inputs.self + "/modules/git") 
-  ];
+  imports =
+    let
+      # On lit tous les dossiers dans modules/
+      moduleDirs = builtins.attrNames (builtins.readDir (inputs.self + "/modules"));
+      # On filtre pour retirer ce qui commence par "_" ou les fichiers indésirables
+      filtered = builtins.filter (name:
+        name != ".DS_Store" && !(builtins.match "^_" name != null)
+      ) moduleDirs;
+    in
+      builtins.map (name: inputs.self + "/modules/${name}") filtered;
+
 
   # ╭──────────────────────────────────────────────────────────────╮
   # │                 PAQUETS SANS MODULE HOME-MANAGER             │
