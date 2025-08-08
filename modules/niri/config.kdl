@@ -1,18 +1,13 @@
+prefer-no-csd
+
 input {
     keyboard {
-        xkb {
-            layout "fr"
-        }
+        xkb { layout "fr" }
         numlock
     }
-    touchpad {
-        tap
-        natural-scroll
-    }
-    mouse {
-    }
-    trackpoint {
-    }
+    touchpad { tap natural-scroll }
+    mouse { }
+    trackpoint { }
 }
 
 output "eDP-1" {
@@ -25,48 +20,49 @@ output "eDP-1" {
 layout {
     gaps 16
     center-focused-column "never"
+
     preset-column-widths {
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
     }
     default-column-width { proportion 0.5; }
+
     focus-ring {
-        width 4
-        active-color "#d1779a"
-        inactive-color "#73bbd3"
+        width 3
+        active-gradient from="#d1779a" to="#e6a6bd" angle=90 in="oklch longer hue"
+        inactive-gradient from="#73bbd3" to="#a6d9e6" angle=90 in="oklch longer hue"
     }
+
     border {
-        off
-        width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        width 2
+        active-gradient from="#d1779aCC" to="#e6a6bdCC" angle=90 in="oklch longer hue"
+        inactive-gradient from="#73bbd3" to="#a6d9e6" angle=90 in="oklch longer hue"
         urgent-color "#9b0000"
     }
+
     shadow {
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
+        softness 40
+        spread 4
+        offset x=0 y=6
+        color "#00000033"
     }
-    struts {
-    }
+
+    struts { }
 }
 
 spawn-at-startup "waybar"
 spawn-at-startup "alacritty"
 
-hotkey-overlay {
-}
+hotkey-overlay { }
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-animations {
-}
+animations { }
 
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
+    default-column-width { }
 }
 
 window-rule {
@@ -74,14 +70,8 @@ window-rule {
     open-floating true
 }
 
-/-window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^org\.gnome\.World\.Secrets$"#
-    block-out-from "screen-capture"
-}
-
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 14
     clip-to-geometry true
 }
 
