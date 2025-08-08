@@ -89,12 +89,7 @@
 
   # ╭────────────────────── PACKAGES SYSTÈME ───────────────╮
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    git neovim                 # déjà présents
-    wl-clipboard swaybg        # utilitaires Wayland
-    xwayland-satellite         # X11 rootless pour Niri :contentReference[oaicite:0]{index=0}
-  ];
-
+ 
   # ╭────────────────────── WAYLAND / Niri ─────────────────╮
   programs.niri.enable = true;
 
