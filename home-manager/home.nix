@@ -62,7 +62,7 @@
       mainBar = {
         layer    = "top";
         position = "top";
-        modules-left  = [ "niri/workspaces" ];   # intégration directe avec Niri :contentReference[oaicite:1]{index=1}
+        modules-left  = [ ];
         modules-center = [ ];
         modules-right = [ "clock" "cpu" "memory" ];
       };
@@ -81,6 +81,8 @@ programs.alacritty = {
     window.padding = { x = 6; y = 6; };
     window.decorations = "none";
     font.size = 11;
+    shell.program = "${pkgs.zsh}/bin/zsh";
+    shell.args = [ "-l" ];
     colors.primary.background = "#1e1e2e";
     colors.primary.foreground = "#cdd6f4";
   };
