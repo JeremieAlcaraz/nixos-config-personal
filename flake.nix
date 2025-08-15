@@ -9,11 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # neovim
-      neovim = {
-        url = "github:dileep-kishore/nyanvim";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+    neovim = {
+      url = "git+https://gitlab.com/jeremiealcaraz/nyanvim.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 
   };
