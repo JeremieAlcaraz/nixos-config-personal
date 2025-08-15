@@ -1,21 +1,20 @@
-# Module Git (Home Manager)
+#    Module Git (Home Manager)
 {
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # ╭──────────────────────────────────────────────────────────────╮
   # │                              GIT                             │
   # ╰──────────────────────────────────────────────────────────────╯
   programs.git = {
     enable = true;
-    userName  = "JeremieAlcaraz";
+    userName = "JeremieAlcaraz";
     userEmail = "hello@jeremiealcaraz.com";
 
     extraConfig = {
       init.defaultBranch = "main";
-      pull.rebase        = false;
+      pull.rebase = false;
     };
   };
 }
