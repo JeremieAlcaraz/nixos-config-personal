@@ -24,7 +24,7 @@
       # Nix
       # Mets à jour SEULEMENT l'input neovim du flake AU BON CHEMIN,
       # puis rebuild NixOS pour l'host "nixos" (adapte si ton host s'appelle autrement)
-      rebuild = "nix flake update neovim --flake $HOME/nix-config && sudo nixos-rebuild switch --flake $HOME/nix-config#nixos";
+      rebuild = "nix flake update --update-input neovim $HOME/nix-config && sudo nixos-rebuild switch --flake $HOME/nix-config#nixos";
 
       # (optionnel) tout mettre à jour
       rebuild-all = "nix flake update --flake $HOME/nix-config && sudo nixos-rebuild switch --flake $HOME/nix-config#nixos";
