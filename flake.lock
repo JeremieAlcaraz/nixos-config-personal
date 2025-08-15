@@ -80,11 +80,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1755278068,
-        "narHash": "sha256-Iq6Q4EsS/XU9bUPB197il9SkC9kG5piwH5Z/w0tkQD4=",
+        "lastModified": 1755278472,
+        "narHash": "sha256-e/N+BQM189xxvzOWS+Rec9LrGfYAeZvnTy7Wm4r0rxg=",
         "ref": "refs/heads/main",
-        "rev": "7c11893fdee30f89762eb5dabe64f494c7203054",
-        "revCount": 294,
+        "rev": "5b496ab7f4e4e81e2790768d490f17c196e329dc",
+        "revCount": 295,
         "type": "git",
         "url": "https://gitlab.com/jeremiealcaraz/nyanvim.git"
       },
