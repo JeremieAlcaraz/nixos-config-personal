@@ -4,8 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   # ╭──────────────────────────────────────────────────────────────╮
   # │                       IDENTITÉ UTILISATEUR                   │
   # ╰──────────────────────────────────────────────────────────────╯
@@ -15,17 +14,15 @@
   # ╭──────────────────────────────────────────────────────────────╮
   # │               IMPORTS MODULES HOME-MANAGER                   │
   # ╰──────────────────────────────────────────────────────────────╯
-  imports =
-    let
-      # On lit tous les dossiers dans modules/
-      moduleDirs = builtins.attrNames (builtins.readDir (inputs.self + "/modules"));
-      # On filtre pour retirer ce qui commence par "_" ou les fichiers indésirables
-      filtered = builtins.filter (name:
-        name != ".DS_Store" && !(builtins.match "^_" name != null)
-      ) moduleDirs;
-    in
-      builtins.map (name: inputs.self + "/modules/${name}") filtered;
-
+  # 🔧 N'itère QUE dans modules/home (évite les modules système)
+  imports = let
+    root = inputs.self + "/modules/home";
+    entries = builtins.readDir root;
+    names = builtins.attrNames entries;
+    dirs = builtins.filter (n: entries.${n} == "directory") names;
+    sorted = builtins.sort builtins.lessThan dirs;
+  in
+    builtins.map (n: root + "/${n}") sorted;
 
   # ╭──────────────────────────────────────────────────────────────╮
   # │                 PAQUETS SANS MODULE HOME-MANAGER             │
@@ -38,7 +35,7 @@
     tree
     fzf
     ripgrep
-    delta  # pager utilisé par lazygit
+    delta # pager utilisé par lazygit
   ];
 
   # ╭──────────────────────────────────────────────────────────────╮
