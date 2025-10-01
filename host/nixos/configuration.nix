@@ -5,18 +5,18 @@
   imports = [
     ./hardware-configuration.nix
   ];
-  
-    # ╭────────────────────── LOGS & KERNEL ──────────────────╮
+
+  # ╭────────────────────── LOGS & KERNEL ──────────────────╮
   boot = {
     # Configuration du bootloader
-    loader.systemd-boot.enable     = true;
+    loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
     # Configuration des logs et kernel
     kernelParams = [ "loglevel=4" "quiet" ];
     consoleLogLevel = 4;
     kernel.sysctl = {
-      "kernel.printk" = "4 4 1 7";  # Réduire verbosité console
+      "kernel.printk" = "4 4 1 7"; # Réduire verbosité console
     };
   };
 
@@ -34,16 +34,16 @@
 
 
   # ╭──────────────────────── RÉSEAU ───────────────────────╮
-  networking.hostName              = "nixos";
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   networking.firewall = {
-    enable          = true;
+    enable = true;
     allowedTCPPorts = [ 22 ];
   };
 
   # ╭────────────────────── LOCALISATION ───────────────────╮
-  time.timeZone       = "Europe/Paris";
-  i18n.defaultLocale  = "en_US.UTF-8";
+  time.timeZone = "Europe/Paris";
+  i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "fr_FR.UTF-8";
     LC_IDENTIFICATION = "fr_FR.UTF-8";
@@ -58,17 +58,17 @@
 
   # ╭────────────────────── CLAVIER & CONSOLE ──────────────╮
   services.xserver.xkb = {
-    layout  = "fr";
+    layout = "fr";
     variant = "azerty";
   };
   console.keyMap = "fr";
 
   # ╭────────────────────── UTILISATEURS ───────────────────╮
   users.users.jeremie = {
-    isNormalUser  = true;
-    description   = "jeremie";
-    extraGroups   = [ "networkmanager" "wheel" "video" "input" "seat" ];
-    shell         = pkgs.zsh;
+    isNormalUser = true;
+    description = "jeremie";
+    extraGroups = [ "networkmanager" "wheel" "video" "input" "seat" ];
+    shell = pkgs.zsh;
   };
   programs.zsh.enable = true;
 
@@ -83,13 +83,13 @@
 
   # ╭────────────────────── SUDO ───────────────────────────╮
   security.sudo = {
-    enable             = true;
+    enable = true;
     wheelNeedsPassword = false;
   };
 
   # ╭────────────────────── PACKAGES SYSTÈME ───────────────╮
   nixpkgs.config.allowUnfree = true;
- 
+
   # ╭────────────────────── WAYLAND / Niri ─────────────────╮
   programs.niri.enable = true;
 
@@ -100,9 +100,16 @@
 
   # Outils utilisés dans ta config Niri
   environment.systemPackages = with pkgs; [
-    git neovim
-    wl-clipboard swaybg xwayland-satellite
-    waybar alacritty fuzzel swaylock brightnessctl
+    git
+    neovim
+    wl-clipboard
+    swaybg
+    xwayland-satellite
+    waybar
+    alacritty
+    fuzzel
+    swaylock
+    brightnessctl
   ];
 
   ## 3. Seat management
@@ -112,18 +119,25 @@
   # ╭────────────────────── RESEAU & AUTRES SERVICES ───────╮
   services.tailscale = { enable = true; openFirewall = true; };
   services.openssh.enable = true;
+  services.dbus.enable = true;
 
   # ╭────────────────────── GIT SYSTÈME (OPTION) ───────────╮
   programs.git = {
     enable = true;
     config.user = {
-      name  = "JeremieAlcaraz";
+      name = "JeremieAlcaraz";
       email = "hello@jeremiealcaraz.com";
     };
   };
 
   # ╭────────────────────── EXPÉRIMENTAL (FLAKES) ──────────╮
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    extra-substituters = [ "https://vicinae.cachix.org" ];
+    extra-trusted-public-keys = [
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+    ];
+  };
 
   # ╭──────────────────── STATE VERSION ────────────────────╮
   system.stateVersion = "25.05";

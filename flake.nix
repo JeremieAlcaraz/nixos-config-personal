@@ -10,15 +10,31 @@
     };
 
     # neovim
-      neovim = {
-        url = "github:dileep-kishore/nyanvim";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+    neovim = {
+      url = "github:dileep-kishore/nyanvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, vicinae, ... }@inputs:
+    let
+      mkFormatter = system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        pkgs.writeShellApplication {
+          name = "fmt";
+          runtimeInputs = [ pkgs.nixpkgs-fmt pkgs.findutils ];
+          text = builtins.readFile ./scripts/fmt.sh;
+        };
+    in
     rec {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
@@ -31,7 +47,7 @@
 
             # glue pour charger la config user
             {
-              home-manager.useGlobalPkgs   = true;
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               # Ajoutez cette ligne pour passer inputs
               home-manager.extraSpecialArgs = { inherit inputs; };
@@ -41,6 +57,11 @@
             }
           ];
         };
+      };
+
+      formatter = {
+        x86_64-linux = mkFormatter "x86_64-linux";
+        aarch64-darwin = mkFormatter "aarch64-darwin";
       };
     };
 }
