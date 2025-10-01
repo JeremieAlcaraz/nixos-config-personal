@@ -8,15 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # neovim
-    neovim = {
-      url = "github:dileep-kishore/nyanvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     vicinae = {
       url = "github:vicinaehq/vicinae";
+    };
+    neovim = {
+      url = "git+https://gitlab.com/jeremiealcaraz/nyanvim.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

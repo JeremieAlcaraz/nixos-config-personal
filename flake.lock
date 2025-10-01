@@ -98,17 +98,17 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1752960049,
-        "narHash": "sha256-z3bFY/VFp6B7Nk5/ULbAF/i3EYhLsMP4v0RkdsEcsqU=",
-        "owner": "dileep-kishore",
-        "repo": "nyanvim",
-        "rev": "8f5207bebd925dd25e6c6104c4f5506bbfb0e474",
-        "type": "github"
+        "lastModified": 1755280486,
+        "narHash": "sha256-yg46L4PA8BgbREInWWxNG8rhT+fJE4IbE9+3tCCFZD4=",
+        "ref": "refs/heads/main",
+        "rev": "b03b8aab6aacf8e3577471d9fab746a70805dc78",
+        "revCount": 296,
+        "type": "git",
+        "url": "https://gitlab.com/jeremiealcaraz/nyanvim.git"
       },
       "original": {
-        "owner": "dileep-kishore",
-        "repo": "nyanvim",
-        "type": "github"
+        "type": "git",
+        "url": "https://gitlab.com/jeremiealcaraz/nyanvim.git"
       }
     },
     "nixCats": {
