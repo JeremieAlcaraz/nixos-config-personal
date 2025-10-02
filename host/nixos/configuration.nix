@@ -1,5 +1,5 @@
 # Configuration système NixOS
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -38,7 +38,9 @@
   # ╭──────────────────────── RÉSEAU ───────────────────────╮
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
-  networking.useDHCP = lib.mkForce true;
+  networking.useNetworkd = false;
+  networking.useDHCP = false;
+  networking.dhcpcd.enable = false;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 ];
