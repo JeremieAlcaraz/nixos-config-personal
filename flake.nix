@@ -21,8 +21,6 @@
       url = "git+https://gitlab.com/jeremiealcaraz/nyanvim.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-
   };
 
   outputs = { self, nixpkgs, home-manager, vicinae, ... }@inputs:
@@ -47,7 +45,22 @@
             # Module VS Code Server (recommandé)
             inputs.vscode-server.nixosModules.default
             ({ ... }: {
-              services.vscode-server.enable = true;
+              services.vscode-server = {
+                enable = true;
+
+                # Surveille les deux emplacements utilisés par VS Code
+                installPath = [
+                  "$HOME/.vscode-server"                # ancien chemin (bin/<commit>/)
+                  "$HOME/.vscode-server/cli/servers"    # nouveau chemin (cli/servers/Stable-*/server/)
+                ];
+
+                # Optionnel: si certaines extensions exigent un env FHS
+                # enableFHS = true;
+              };
+
+              # LINGERING déclaratif: systemd --user actif au boot pour 'jeremie'
+              services.logind.lingerUsers = [ "jeremie" ];
+
               # (Optionnel) compat binaire générique via nix-ld :
               # programs.nix-ld.enable = true;
             })
