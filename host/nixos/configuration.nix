@@ -1,5 +1,5 @@
 # Configuration système NixOS
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -38,6 +38,7 @@
   # ╭──────────────────────── RÉSEAU ───────────────────────╮
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  networking.useDHCP = lib.mkForce true;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 ];
@@ -122,6 +123,8 @@
   services.tailscale = { enable = true; openFirewall = true; };
   services.openssh.enable = true;
   services.dbus.enable = true;
+  services.qemuGuest.enable = true;
+  services.cloud-init.enable = true;
 
   # ╭────────────────────── GIT SYSTÈME (OPTION) ───────────╮
   programs.git = {

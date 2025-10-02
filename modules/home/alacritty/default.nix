@@ -1,8 +1,7 @@
 # Module Alacritty (Home Manager)
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }:
 {
   # ╭──────────────────────────────────────────────────────────────╮

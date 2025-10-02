@@ -1,15 +1,14 @@
 # Module Waybar (Home Manager)
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }:
 {
   # ╭──────────────────────────────────────────────────────────────╮
   # │                            WAYBAR                            │
   # ╰──────────────────────────────────────────────────────────────╯
   programs.waybar = {
-    enable = true;        # active Waybar
+    enable = true; # active Waybar
     systemd.enable = true;
     package = pkgs.waybar; # (optionnel : version depuis nixpkgs)
 
