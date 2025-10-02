@@ -9,11 +9,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # VS Code Server natif pour NixOS
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # VS Code Server natif pour NixOS (Désactivé au profit de nix-ld)
+    # vscode-server = {
+    #   url = "github:nix-community/nixos-vscode-server";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     vicinae = {
       url = "github:vicinaehq/vicinae";
     };
@@ -45,27 +46,20 @@
         modules = [
           ./host/nixos/configuration.nix
 
-          # Module VS Code Server (recommandé)
-          inputs.vscode-server.nixosModules.default
-          ({...}: {
-            services.vscode-server = {
+          # Ajout de la compatibilité pour les binaires externes comme VS Code Server
+          ({ pkgs, ... }: {
+            programs.nix-ld = {
               enable = true;
-
-              # Surveille les deux emplacements utilisés par VS Code
-              installPath = [
-                "$HOME/.vscode-server" # ancien chemin (bin/<commit>/)
-                "$HOME/.vscode-server/cli/servers" # nouveau chemin (cli/servers/Stable-*/server/)
+              libraries = with pkgs; [
+                stdenv.cc.cc
+                zlib
+                curl
+                openssl
               ];
-
-              # Optionnel: si certaines extensions exigent un env FHS
-              # enableFHS = true;
             };
 
-            # LINGERING déclaratif: systemd --user actif au boot pour 'jeremie'
+            # On garde le lingering, c'est une bonne pratique pour les services utilisateur
             users.users.jeremie.linger = true;
-
-            # (Optionnel) compat binaire générique via nix-ld :
-            # programs.nix-ld.enable = true;
           })
 
           # module Home-Manager
@@ -89,4 +83,4 @@
       aarch64-darwin = mkFormatter "aarch64-darwin";
     };
   };
-}
+} 
