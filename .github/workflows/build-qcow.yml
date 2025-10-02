@@ -1,4 +1,4 @@
-name: Build Proxmox image (with Cachix)
+name: Build Proxmox QCOW2 image (with Cachix)
 
 on:
   workflow_dispatch:
@@ -32,24 +32,23 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      # Active Cachix POUR PULL & PUSH (grâce au token)
       - name: Use Cachix (pull & push)
         uses: cachix/cachix-action@v14
         with:
-          name: jeremiealcaraz            # nom de ton cache public
+          name: jeremiealcaraz
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Build Proxmox image
+      - name: Build QCOW2 image
         run: |
           mkdir -p out
           nix --accept-flake-config run github:nix-community/nixos-generators -- \
-            --format proxmox \
+            --format qcow \
             --flake .#nixos \
-            -o ./out/nixos-proxmox.tar.zst \
+            -o ./out/nixos-proxmox.qcow2 \
             --show-trace
 
-      - name: Upload Proxmox artifact
+      - name: Upload QCOW2 artifact
         uses: actions/upload-artifact@v4
         with:
-          name: nixos-proxmox
-          path: out/nixos-proxmox.tar.zst
+          name: nixos-proxmox-qcow2
+          path: out/nixos-proxmox.qcow2
