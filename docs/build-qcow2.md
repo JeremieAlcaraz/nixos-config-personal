@@ -7,7 +7,7 @@ This document explains how the `build-qcow.yml` workflow works and how to use it
 The workflow runs on GitHub-hosted Ubuntu runners. Each run performs these steps:
 
 1. Check out the repository.
-2. Install Nix using `cachix/install-nix-action`.
+2. Install Nix using `cachix/install-nix-action`, enabling the `nix-command` and `flakes` features.
 3. Invoke `nixos-generators` with the `nixos` flake output to produce a QCOW2 image.
 4. Publish the resulting `nixos.qcow2` file as a downloadable artifact.
 
