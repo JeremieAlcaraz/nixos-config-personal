@@ -91,9 +91,6 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" {
         spawn "fuzzel"
     }
-    Mod+M hotkey-overlay-title="Run Vicinae" {
-        spawn "vicinae"
-    }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" {
         spawn "swaylock"
     }
@@ -437,4 +434,3 @@ binds {
         power-off-monitors
     }
 }
-

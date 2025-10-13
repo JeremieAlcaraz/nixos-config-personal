@@ -24,10 +24,33 @@
       reload = "exec zsh";
 
       # Nix
-      rebuild = "nix flake update neovim --flake /home/jeremie/nix-config && sudo nixos-rebuild switch --flake /home/jeremie/nix-config#nixos && exec zsh";
-      rebuild-all = "nix flake update --flake $HOME/nix-config && sudo nixos-rebuild switch --flake $HOME/nix-config#nixos";
-      rebuild-test = "sudo nixos-rebuild test --flake $HOME/nix-config#nixos";
-      rebuild-boot = "sudo nixos-rebuild boot --flake $HOME/nix-config#nixos";
+      rebuild = ''
+        repo_root="$(git rev-parse --show-toplevel 2>/dev/null || echo "$HOME/nix-config")" &&
+        target="$NIXOS_FLAKE_HOST" &&
+        { [ -n "$target" ] || target="nixos"; } &&
+        nix flake update neovim --flake "$repo_root" &&
+        sudo nixos-rebuild switch --flake "$repo_root#$target" &&
+        exec zsh
+      '';
+      rebuild-all = ''
+        repo_root="$(git rev-parse --show-toplevel 2>/dev/null || echo "$HOME/nix-config")" &&
+        target="$NIXOS_FLAKE_HOST" &&
+        { [ -n "$target" ] || target="nixos"; } &&
+        nix flake update --flake "$repo_root" &&
+        sudo nixos-rebuild switch --flake "$repo_root#$target"
+      '';
+      rebuild-test = ''
+        repo_root="$(git rev-parse --show-toplevel 2>/dev/null || echo "$HOME/nix-config")" &&
+        target="$NIXOS_FLAKE_HOST" &&
+        { [ -n "$target" ] || target="nixos"; } &&
+        sudo nixos-rebuild test --flake "$repo_root#$target"
+      '';
+      rebuild-boot = ''
+        repo_root="$(git rev-parse --show-toplevel 2>/dev/null || echo "$HOME/nix-config")" &&
+        target="$NIXOS_FLAKE_HOST" &&
+        { [ -n "$target" ] || target="nixos"; } &&
+        sudo nixos-rebuild boot --flake "$repo_root#$target"
+      '';
       # Divers
       v = "nvim";
       ls = "eza --group-directories-first --icons";
